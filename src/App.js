@@ -2,62 +2,80 @@ import React, { useState } from 'react';
 import './App.css';
 
 const imageUrls = [
-  {url: 'https://thumbs.dreamstime.com/b/bunch-bananas-6175887.jpg?w=768', type: 'banana'},
-  {url: 'https://thumbs.dreamstime.com/z/full-body-brown-chicken-hen-standing-isolated-white-backgroun-background-use-farm-animals-livestock-theme-49741285.jpg?ct=jpeg', type:'chicken'},
-  {url: 'https://thumbs.dreamstime.com/b/bunch-bananas-6175887.jpg?w=768', type: 'banana'},
-  {url: 'https://thumbs.dreamstime.com/z/full-body-brown-chicken-hen-standing-isolated-white-backgroun-background-use-farm-animals-livestock-theme-49741285.jpg?ct=jpeg', type:'chicken'},
-  {url: 'https://thumbs.dreamstime.com/b/bunch-bananas-6175887.jpg?w=768', type: 'banana'},
-  {url: 'https://thumbs.dreamstime.com/z/full-body-brown-chicken-hen-standing-isolated-white-backgroun-background-use-farm-animals-livestock-theme-49741285.jpg?ct=jpeg', type:'chicken'}
-
-
+  {url: 'https://shop.hololivepro.com/cdn/shop/files/hololivefriends_vol.20_top_GigiMurin_1024x1024.png?v=1750221364', type: 'Gigi'},
+  {url: 'https://shop.hololivepro.com/cdn/shop/files/hololivefriends_vol.20_top_CeciliaImmergreen_1024x1024.png?v=1750221418', type:'Cece'},
+  {url: 'https://shop.hololivepro.com/cdn/shop/files/hololivefriends_vol.20_top_GigiMurin_1024x1024.png?v=1750221364', type: 'Gigi'},
+  {url: 'https://shop.hololivepro.com/cdn/shop/files/hololivefriends_vol.20_top_CeciliaImmergreen_1024x1024.png?v=1750221418', type:'Cece'},
+  {url: 'https://shop.hololivepro.com/cdn/shop/files/hololivefriends_vol.20_top_GigiMurin_1024x1024.png?v=1750221364', type: 'Gigi'},
+  {url: 'https://shop.hololivepro.com/cdn/shop/files/hololivefriends_vol.20_top_CeciliaImmergreen_1024x1024.png?v=1750221418', type:'Cece'}
 ];
 
 
 function getRandomImage() {
-  const index = Math.floor(Math.random() * 6) ;
+  const index = Math.floor(Math.random() * imageUrls.length) ;
   return imageUrls[index];
 }
 
 function App() {
   const [images, setImages] = useState(Array(36).fill().map(() => getRandomImage()));
   const [playerChoice, setPlayerChoice] = useState(null)
+  const [revealed, setRevealed] = useState(Array(36).fill(false));
+  const [currentPlayer, setCurrentPlayer] = useState(1); 
 
-  const handleCellChoice = (image) =>{
-    setImages(images.map(() => getRandomImage()));
-    if (playerChoice === null) return;
-    if (image.type === playerChoice){
-      alert("Correct!")
-    }
-    else{
-      alert("Wrong!" + image.type)
-    }
+const handleCellChoice = (index) => {
+  if (revealed[index]) return; 
+
+  if (playerChoice === null) {
+    alert(`Player ${currentPlayer}, please choose Gigi or Cece first.`);
+    return;
   }
+  
+  const selectedImage = images[index];
+  const newRevealed = [...revealed];
+  newRevealed[index] = true;
+  setRevealed(newRevealed);
+
+  // checks if chosen image is correct
+  if (selectedImage.type === playerChoice) {
+    alert(`Player ${currentPlayer}: Correct!`);
+  } else {
+    alert(`Player ${currentPlayer}: Wrong! It was a ${selectedImage.type}`);
+  }
+
+  setPlayerChoice(null);
+  setCurrentPlayer(currentPlayer === 1 ? 2 : 1); 
+};
 
   const handleChoice = (choice) => {
     setPlayerChoice(choice);
     }
 
   
-  const handleClick = () => {
-    setImages(images.map(() => getRandomImage()));
-  }
+  // const handleClick = () => {
+  //   setImages(Array(36).fill().map(() => getRandomImage()));
+  //   setRevealed(Array(36).fill(false));
+  //   setPlayerChoice(null);
+  // }
 
   return (
     <div className="container">
-      <h1> Chicken Banana Game!</h1>
+      <h1> Cece Gigi Game!</h1>
       <div className='button-container'>
-        <button onClick={handleChoice}>Banana</button>
-        <button onClick={handleChoice}>Chicken</button>
+        <h2>Current Turn: Player {currentPlayer}</h2>
+        {/* <h3>Scores - Player 1: {scores[1]} | Player 2: {scores[2]}</h3> */}
+        <button onClick={() => handleChoice('Gigi')}>Gigi</button>
+        <button onClick={() => handleChoice('Cece')}>Cece</button>
       </div>
+      <div></div>
       <div className="grid">
-        {images.map((img, index) => (
-          <img
-            key={index}
-            src={img.url}
-            alt="Random"
-            className="square"
-            onClick={handleCellChoice}
-          />
+         {images.map((img, index) => (
+          <div key={index} onClick={() => handleCellChoice(index)} className={revealed[index] ? 'revealed-cell' : ''}>
+            {revealed[index] ? (
+              <img src={img.url} className="square" />
+            ) : (
+              <div className="square hidden-cell"></div>
+            )}
+          </div>
         ))}
       </div>
     </div>
@@ -66,24 +84,3 @@ function App() {
 
 export default App;
 
-
-
-
-// function Welcome(props){
-//   return <h2>Welcome, {props.name}!</h2>
-// }
-
-// function Counter(){
-//   const[count, setCount] = useState(0)
-
-//   function handleCLick(){
-//     setCount(count + 1)
-//   }
-  
-//   return(
-//     <div>
-//       <p>You clicked {count} times.</p>
-//       <button onClick={handleCLick}>Click Me</button>
-//     </div>
-//   )
-// }

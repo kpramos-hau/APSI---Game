@@ -1,49 +1,11 @@
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
 
 .grid {
   display: grid;
   width:100px;
   grid-template-columns: auto auto auto auto auto auto;
   border-style: solid 2px black;
-  margin-right: 575px; 
-  gap: 12px
+  gap: 12px;
+  margin-right: 585px;
 }
 .grid > div {
   background-color: #f1f1f1;
@@ -61,7 +23,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  
 }
+
+/* .container{
+ display: grid;
+ align-items: center;
+
+} */
 
 .button-container{
   display: flex;
@@ -72,4 +41,16 @@
 button{
   width:75px;
   height: 50px;
+}
+
+.hidden-cell {
+  background-color: gray;
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.revealed-cell {
+  cursor: default;
 }

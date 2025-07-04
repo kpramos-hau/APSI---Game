@@ -6,6 +6,8 @@ If this error shows:
     'react-scripts' is not recognized as an internal or external command,
     operable program or batch file.
     
+Reason: node_modules is not present
+    
 Type this into the console:
     npm install react-scripts --save
 

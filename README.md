@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+If this error shows:
+    'react-scripts' is not recognized as an internal or external command,
+    operable program or batch file.
+    
+Type this into the console:
+    npm install react-scripts --save
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -48,7 +48,7 @@ function App() {
       alert(`Wrong! It was a ${selectedImage.type}.`);
 
       resetAndRandomizeBoard();
-      setScore(score); 
+      setScore(0); 
       setPlayerChoice(null);
       
     }
